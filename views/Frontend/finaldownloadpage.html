@@ -982,15 +982,15 @@
     <div class="application-form" id="pdfpage">
       
        <div class="pdf-div">
-        <h2 style="text-align: center;">Sanction letter</h2>
+        <h2 style="text-align: center; font-size: 1.7rem; font-weight: 700; text-transform: capitalize;">Sanction letter</h2>
         <div class="heading-of-letter">
             <div class="info">Quick Loan
-                <div style="padding: 4px 0px; font-size: .7rem; text-transform: capitalize; color: #403f3f;">Lorem ipsum dolor sit amet.</div>
+                <div style="padding: 4px 0px; font-size: .7rem; text-transform: capitalize; color: #403f3f;" id="addresss">Lorem ipsum dolor sit amet.</div>
             </div>
             <div class="info-address" ><img src="/assets/img/quicklaon.png" width="90px" alt=""></div>
         </div>
         <div class="heading-of-name">
-            <div class="info-name">Sansction No.</div>
+            <div class="info-name">Loan No.</div>
             <div class="info-name">:</div>
             <div class="info-data" id="Sansction">k23nu834jeo8</div>
         </div>
@@ -1053,7 +1053,7 @@
             <div class="info-data checkemi" ></div>
         </div>
         <div class="heading-of-name">
-            <div class="info-name">Total Amount</div>
+            <div class="info-name">Total Intrest</div>
             <div class="info-name">:</div>
             <div class="info-data" id="totalamt" ></div>
         </div>
@@ -1100,20 +1100,20 @@
 
             <div class="info-address" ><img src="/assets/img/stamp.png" width="100px" alt=""></div>
         </div>
-        <!-- <div class="info-text" id="phoneNumber">N/A</div> -->
-        <!-- <div class="info-text" id="email">N/A</div>
-        <div class="info-text" id="jobType">N/A</div>
-        <div class="info-text" id="emidata">N/A</div>
-        <div class="info-text" id="income">N/A</div>
-        <div class="info-text" id="address">N/A</div>
-        <div class="info-text" id="loanType">N/A</div>            
-        <div class="info-text" id="loanLimit">N/A</div>
-        <div class="info-text" id="interest">N/A</div>
-        <div class="info-text" id="durationyear">N/A</div>
-        <div class="info-text" id="bankname">N/A</div>
-        <div class="info-text" id="accounttype">N/A</div>
-        <div class="info-text" id="bankaccount">N/A</div>
-        <div class="info-text" id="Signature">N/A</div> -->
+        <!-- <div class="info-text" id="phoneNumber">____</div> -->
+        <!-- <div class="info-text" id="email">____</div>
+        <div class="info-text" id="jobType">____</div>
+        <div class="info-text" id="emidata">____</div>
+        <div class="info-text" id="income">____</div>
+        <div class="info-text" id="address">____</div>
+        <div class="info-text" id="loanType">____</div>            
+        <div class="info-text" id="loanLimit">____</div>
+        <div class="info-text" id="interest">____</div>
+        <div class="info-text" id="durationyear">____</div>
+        <div class="info-text" id="bankname">____</div>
+        <div class="info-text" id="accounttype">____</div>
+        <div class="info-text" id="bankaccount">____</div>
+        <div class="info-text" id="Signature">____</div> -->
     </div>
     </div>
 </div>
@@ -1288,16 +1288,16 @@ async function fetchData(userId) {
 document.getElementById('Sansction').textContent = data._id.substring(0, 7).toUpperCase();
 
             document.getElementById('phoneNumber').textContent = data.phoneNumber || 'Joy';
-            document.getElementById('durationyear').textContent=`${data.duration}-year` || 'N/A' ;
-            document.getElementById('email').textContent = data.email || 'N/A';
-            document.getElementById('jobType').textContent = data.jobType || 'N/A';
+            document.getElementById('durationyear').textContent=`${data.duration}-year` || '____' ;
+            document.getElementById('email').textContent = data.email || '____';
+            document.getElementById('jobType').textContent = data.jobType || '____';
             document.getElementById('income').textContent = `${data.income || '0'}`;
             const address = data.address.split(',')[0].trim();
 document.getElementById('address').textContent = address;
 
-            document.getElementById('loanType').textContent = data.loanTypeDetails?.loanType || 'N/A';
+            document.getElementById('loanType').textContent = data.loanTypeDetails?.loanType || '____';
             document.getElementById('interest').textContent = `${data.loanTypeDetails?.interest || '0'}%`;
-            document.getElementById('loanLimit').textContent = `${data.loanTypeDetails?.limit || '0'}`;
+           
             document.getElementById('banknamedata').textContent = data.bankName || '____';
             document.getElementById('ifc').textContent = data.ifscCode || '____';
             document.getElementById('accounttype').textContent = data.accountType || '____';
@@ -1323,13 +1323,17 @@ document.getElementById('address').textContent = address;
         element.textContent = emi.toFixed(2);
     });
     const totalemi=emi.toFixed(2) *numberOfPayments;
+   
     document.getElementById('totalemi').textContent = totalemi 
 
     const charges1 = Number(data.charges1) || 0;
     const charges2 = Number(data.charges2) || 0;
     const insuranceAmount = Number(data.insuranceamount) || 0; // Convert insurance amount to number
     const total = charges1 + loanAmount + insuranceAmount;
+    const totalIntrest =totalemi -total
 
+    document.getElementById('totalamt').textContent = `${totalIntrest.toFixed(2) || '____'}`;
+    document.getElementById('loanLimit').textContent = `${total || '____'}`;
     // Updating the DOM
     document.getElementById('limtamt').innerHTML = `
         <span style="padding-right: 10px; margin: 0px;">Emi: </span>
@@ -1351,11 +1355,11 @@ document.getElementById('address').textContent = address;
         <p style="padding: 0px; margin: 0px; display: flex; font-size: .9rem; font-weight: 500;">${insuranceAmount}</p>
     `;
 
-    document.getElementById('totalAmouny').textContent = `${total || 'N/A'}`;
-    document.getElementById('totalamt').textContent = `${total || 'N/A'}`;
+    document.getElementById('totalAmouny').textContent = `${total || '____'}`;
+ 
 
     document.getElementById('loanSummary').innerHTML = `
-        <p style="padding: 0px; margin: 0px; display: flex; color: yellow; font-size: .9rem; font-weight: 500;">Total Amount: </p>
+        <p style="padding: 0px; margin: 0px; display: flex; color: yellow; font-size: .9rem; font-weight: 500;">Total Limit: </p>
         <p style="padding: 0px; margin: 0px; display: flex; font-size: .9rem; font-weight: 500;">${charges1}</p>
         <p style="padding: 0px; margin: 0px; display: flex; font-size: .9rem; font-weight: 500;">+ ${charges2}</p>
         <p style="padding: 0px; margin: 0px; display: flex; font-size: .9rem; font-weight: 500;">+ ${loanAmount}</p>
@@ -1384,9 +1388,9 @@ document.getElementById('address').textContent = address;
                 contactEmailElement.textContent =`✉️${companyData.email } `;
             }
         
-            document.getElementById('charges1').textContent = `Charges 1: ${companyData.charges1 || 'N/A'}`;
-            document.getElementById('charges2').textContent = `Charges 2: ${companyData.charges2 || 'N/A'}`;
-            document.getElementById('paymentQRCharges2').textContent = `Payment QR Charges 2: ${companyData.paymentQRCharges2 || 'N/A'}`;
+            document.getElementById('charges1').textContent = `Charges 1: ${companyData.charges1 || '____'}`;
+            document.getElementById('charges2').textContent = `Charges 2: ${companyData.charges2 || '____'}`;
+            document.getElementById('paymentQRCharges2').textContent = `Payment QR Charges 2: ${companyData.paymentQRCharges2 || '____'}`;
         }
         
 
@@ -1554,6 +1558,7 @@ function updateFooterWithProfile(data) {
         document.getElementById('contact-phone').innerHTML = `<i class="fas fa-phone"></i> ${profile.contactNo}`;
         document.getElementById('contact-email').innerHTML = `<i class="fas fa-envelope"></i> ${profile.email}`;
         document.getElementById('contact-address').innerHTML = `<i class="fas fa-home"></i> ${profile.address}`;
+        document.getElementById("addresss").textContent = profile.address || __;
         document.getElementById('footer-email').textContent = profile.email;
         document.getElementById('footer-email').href = `mailto:${profile.email}`;
     } else {
