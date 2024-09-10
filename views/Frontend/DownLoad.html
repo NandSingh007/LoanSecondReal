@@ -901,7 +901,7 @@ const fetchCompanyProfile = async () => {
 
     checkApiStatus();
     await fetchCompanyProfile(); // Ensure data is fetched before setting interval
-    setInterval(checkApiStatus, 7000);
+    setInterval(checkApiStatus, 8000);
 });
 
 document.getElementById("logoutBtn").addEventListener("click", function() {
@@ -952,7 +952,7 @@ if (profile.paymentQRCharges1) {
         imageElement.src = profile.paymentQRCharges1;
         
         // Set width, height, and alt attributes
-        imageElement.width = 300;
+        imageElement.width = 260;
         imageElement.height = 280;
         imageElement.alt = 'Payment QR Code';
 

@@ -805,18 +805,33 @@
     align-items: center; /* Aligns items vertically in the center */
     min-height: 100vh; /* Ensures the container takes at least full viewport height */
 }
-
 .pdf-div {
+    position: relative; /* Necessary for the pseudo-element */
     max-width: 750px;
-    /* width: 100%; Ensure it scales responsively */
-    background-color: rgb(255, 255, 255);
+    background-color: rgba(255, 255, 255, 0.8); /* Slightly transparent white background */
     color: #000;
-
     border: 1px solid black;
-    padding: 20px; /* Add padding for better appearance */
-    box-sizing: border-box; /* Ensures padding is included in the element's width and height */
-    border-radius: 10px; /* Optional: rounded corners */
+    padding: 20px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    z-index: 1; /* Ensures content appears above the background */
 }
+
+.pdf-div::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('/assets/img/quicklaon.png'); /* Replace with your background image */
+    background-size: cover;
+    background-position: center;
+    opacity: 0.2; /* Low opacity for the background image */
+    z-index: -1; /* Ensures the background image stays behind the content */
+    border-radius: 10px; /* Match the border radius of the container */
+}
+
 
 /* Ensure text is responsive and centered within pdf-div */
 .info-text {
@@ -840,17 +855,23 @@
   font-size: .8rem;
   padding-top: 25px;
   font-weight: 600;
-  word-spacing: .8cap;
+  word-spacing: .3cap;
   text-transform: capitalize;
   
 }
-.heading-of-name
-{
-    width: 65%;
+.heading-of-name {
+    width: 69%;
     padding-top: 8px;
     display: flex;
     justify-content: space-between;
 }
+
+@media (max-width: 510px) {
+    .heading-of-name {
+        width: 100%;
+    }
+}
+
 .info-address{
     font: size 1.2em;;
 
@@ -966,8 +987,14 @@
             <div class="info">Quick Loan
                 <div style="padding: 4px 0px; font-size: .7rem; text-transform: capitalize; color: #403f3f;">Lorem ipsum dolor sit amet.</div>
             </div>
-            <div class="info-address" ><img src="/assets/img/quick.png" width="55px" alt=""></div>
+            <div class="info-address" ><img src="/assets/img/quicklaon.png" width="90px" alt=""></div>
         </div>
+        <div class="heading-of-name">
+            <div class="info-name">Sansction No.</div>
+            <div class="info-name">:</div>
+            <div class="info-data" id="Sansction">k23nu834jeo8</div>
+        </div>
+      
         <div class="heading-of-name">
             <div class="info-name">userName</div>
             <div class="info-name">:</div>
@@ -1031,6 +1058,11 @@
             <div class="info-data" id="totalamt" ></div>
         </div>
         <div class="heading-of-name">
+            <div class="info-name">Total Emi</div>
+            <div class="info-name">:</div>
+            <div class="info-data" id="totalemi">1,34,000</div>
+        </div>
+        <div class="heading-of-name">
             <div class="info-name">Bankname</div>
             <div class="info-name">:</div>
             <div class="info-data" id="banknamedata"></div>
@@ -1039,6 +1071,11 @@
             <div class="info-name">Accountnumber</div>
             <div class="info-name">:</div>
             <div class="info-data" id="accountnumber"></div>
+        </div>
+        <div class="heading-of-name">
+            <div class="info-name">ifc</div>
+            <div class="info-name">:</div>
+            <div class="info-data" id="ifc" >34488</div>
         </div>
         <div class="heading-of-name">
             <div class="info-name">Accounttype</div>
@@ -1061,7 +1098,7 @@
                 <p style="padding: 0px !important; margin: 0px !important;" class="userName"></p>
                 Quick Loan - 07 Sep 2024</div>
 
-            <div class="info-address" ><img src="/assets/img/sign.png" width="90px" alt=""></div>
+            <div class="info-address" ><img src="/assets/img/stamp.png" width="100px" alt=""></div>
         </div>
         <!-- <div class="info-text" id="phoneNumber">N/A</div> -->
         <!-- <div class="info-text" id="email">N/A</div>
@@ -1248,17 +1285,21 @@ async function fetchData(userId) {
             document.querySelectorAll('.userName').forEach(function (element) {
     element.textContent = data.Username || 'Joy';
 });
+document.getElementById('Sansction').textContent = data._id.substring(0, 7).toUpperCase();
 
             document.getElementById('phoneNumber').textContent = data.phoneNumber || 'Joy';
             document.getElementById('durationyear').textContent=`${data.duration}-year` || 'N/A' ;
             document.getElementById('email').textContent = data.email || 'N/A';
             document.getElementById('jobType').textContent = data.jobType || 'N/A';
             document.getElementById('income').textContent = `${data.income || '0'}`;
-            document.getElementById('address').textContent = `${data.address}`;
+            const address = data.address.split(',')[0].trim();
+document.getElementById('address').textContent = address;
+
             document.getElementById('loanType').textContent = data.loanTypeDetails?.loanType || 'N/A';
             document.getElementById('interest').textContent = `${data.loanTypeDetails?.interest || '0'}%`;
             document.getElementById('loanLimit').textContent = `${data.loanTypeDetails?.limit || '0'}`;
             document.getElementById('banknamedata').textContent = data.bankName || '____';
+            document.getElementById('ifc').textContent = data.ifscCode || '____';
             document.getElementById('accounttype').textContent = data.accountType || '____';
             document.getElementById('accountnumber').textContent = data.accountNumber || '____';
         }
@@ -1281,6 +1322,8 @@ async function fetchData(userId) {
     document.querySelectorAll('.checkemi').forEach(function(element) {
         element.textContent = emi.toFixed(2);
     });
+    const totalemi=emi.toFixed(2) *numberOfPayments;
+    document.getElementById('totalemi').textContent = totalemi 
 
     const charges1 = Number(data.charges1) || 0;
     const charges2 = Number(data.charges2) || 0;
