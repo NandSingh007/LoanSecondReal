@@ -691,9 +691,13 @@ body {
                                     Aadhaar Card Number
                                 </label>
                                 <input type="number" id="adharcardNumber" name="adharcardNumber" placeholder="Enter Aadhaar number" class="form-control" style="border: 1px solid #007bff;" oninput="validateAadhaarNumber(this)" required />
-                                <small id="adharcardNumberHelp" class="form-text text-danger">
-                                    Please enter a valid 12-digit Aadhaar number.
-                                </small>
+                                <small 
+                                id="adharcardNumberHelp" 
+                                class="form-text text-danger" 
+                                style="display: none;"
+                              >
+                                Please enter a valid 12-digit Aadhaar number.
+                              </small>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -702,10 +706,25 @@ body {
                                     <i class="fas fa-hashtag" style="margin-right: 8px; font-size: 1.5rem;"></i>
                                     PAN Card Number
                                 </label>
-                                <input type="text" id="pancardNumber" name="pancardNumber" placeholder="Pan card number" class="form-control" style="border: 1px solid #007bff; text-transform: uppercase;" oninput="this.value = this.value.toUpperCase();" required />
-                                <small id="pancardNumberHelp" class="form-text text-muted" style="display: none; color: red !important;">
-                                    Please enter a valid PAN Card number. ex { ABSCF2929O} 5 characters 4 numbers 1 character
-                                </small>
+                                <input 
+                                type="text" 
+                                id="pancardNumber" 
+                                name="pancardNumber" 
+                                placeholder="Pan card number" 
+                                class="form-control" 
+                                style="border: 1px solid #007bff; text-transform: uppercase;" 
+                                oninput="validatePANCardNumber(this)" 
+                                maxlength="10" 
+                                required 
+                              />
+                              <small 
+                                id="pancardNumberHelp" 
+                                class="form-text text-muted" 
+                                style="display: none; color: red !important;"
+                              >
+                                Please enter a valid PAN Card number. ex { ABSCF2929O} 5 characters 4 numbers 1 character
+                              </small>
+                              
                             </div>
                         </div>
                     </div>
@@ -1208,30 +1227,46 @@ if (loanAmountValue === 0 || loanAmountValue > 500000) {
       return false;
     }
   }
-  function handleNextStep(currentStep) {
-      console.log(currentStep,"currentStep")
-      if (currentStep == 1) {
-          const pancardNumber = document.getElementById('pancardNumber').value;  
-          if (!validatePANCard(pancardNumber)) {  
-              document.getElementById('pancardNumberHelp').style.display = 'block';
-              return; // Stop further execution if PAN card validation fails
-          } else {
-              document.getElementById('pancardNumberHelp').style.display = 'none';
-          }
-      }
-  console.log("documentForm")
-      if (validateForm('documentForm')) {
-          // console.log("documentForm ander")
-          showStep(currentStep + 1); // Move to the next step
-      } else {
-          alert('Please fill out all required fields.');
-      }
+
+  function validatePANCardNumber(input) {
+  const pancardPattern = /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/;
+  const pancardHelp = document.getElementById('pancardNumberHelp');
+  
+  // Ensure input is uppercase
+  input.value = input.value.toUpperCase();
+
+  // Check if the pattern matches exactly 10 characters
+  if (input.value.length === 10 && pancardPattern.test(input.value)) {
+    pancardHelp.style.display = 'none'; // Hide error message if valid
+  } else {
+    pancardHelp.style.display = 'block'; // Show error if not valid
   }
+}
+
+  function handleNextStep(currentStep) {
+  console.log(currentStep, "currentStep");
+
+  if (currentStep == 1) {
+    const pancardNumber = document.getElementById('pancardNumber').value;  
+    if (!validatePANCard(pancardNumber)) {  
+      document.getElementById('pancardNumberHelp').style.display = 'block';
+      return; // Stop further execution if PAN card validation fails
+    } else {
+      document.getElementById('pancardNumberHelp').style.display = 'none';
+    }
+  }
+
+  if (validateForm('documentForm')) {
+    showStep(currentStep + 1); // Move to the next step
+  } else {
+    alert('Please fill out all required fields.');
+  }
+}
   
   function validatePANCard(pancardNumber) {
-      const pancardPattern = /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/;
-      return pancardPattern.test(pancardNumber);
-  }
+  const pancardPattern = /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/;
+  return pancardPattern.test(pancardNumber);
+}
   
   function validateForm(formId) {
       const form = document.getElementById(formId);
@@ -1477,12 +1512,20 @@ if (loanAmountValue === 0 || loanAmountValue > 500000) {
      }, 2000);
   </script>
   <script>
-      function validateAadhaarNumber(input) {
-          // Convert value to string, slice the first 12 characters if longer than 12
-          if (input.value.length > 12) {
-              input.value = input.value.slice(0, 12);
-          }
-      }
+    function validateAadhaarNumber(input) {
+    const value = input.value;
+    const aadhaarHelp = document.getElementById('adharcardNumberHelp');
+
+    // If the user starts typing but hasn't entered 12 digits
+    if (value.length === 0) {
+      aadhaarHelp.style.display = 'none'; // Hide the help text when no input
+    } else if (value.length > 12) {
+      input.value = value.slice(0, 12); // Ensure only 12 digits are allowed
+      aadhaarHelp.style.display = 'block'; // Show error if more than 12 digits
+    } else {
+      aadhaarHelp.style.display = value.length < 12 ? 'block' : 'none'; // Show error if less than 12 digits
+    }
+  }
       </script>
   
     

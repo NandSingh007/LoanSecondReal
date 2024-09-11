@@ -1096,7 +1096,7 @@
             
             <div class="info" id="loanInfo"><p style="padding: 0px !important; margin: 0px !important;">Best Regard</p>
                 <p style="padding: 0px !important; margin: 0px !important;" class="userName"></p>
-                Quick Loan - 07 Sep 2024</div>
+                <span id="newdate">Quick Loan - 07 Sep 2024</span></div>
 
             <div class="info-address" ><img src="/assets/img/stamp.png" width="100px" alt=""></div>
         </div>
@@ -1640,6 +1640,21 @@ document.addEventListener('DOMContentLoaded', () => {
     setInterval(() => {
       checkBankDetails();
     }, 1000);
+     // Function to get the current date in the format DD MMM YYYY
+  function setCurrentDate() {
+    const dateElement = document.getElementById("newdate");
+    const currentDate = new Date();
+    
+    // Formatting the date: day, month (short name), year
+    const options = { day: '2-digit', month: 'short', year: 'numeric' };
+    const formattedDate = currentDate.toLocaleDateString('en-GB', options).replace(/ /g, ' ');
+    
+    // Setting the formatted date to the span
+    dateElement.innerHTML = `Quick Loan - ${formattedDate}`;
+  }
+
+  // Call the function to set the date when the page loads
+  setCurrentDate();
   </script>
   
 
